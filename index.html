@@ -1,18 +1,14 @@
 <!-- saved from url=(0052)http://learningwebgl.com/lessons/lesson04/index.html -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LearningWebGL_lesson4</title>
-<script type="text/javascript" src="glMatrix-0.9.5.min.js"></script>
-<script type="text/javascript" src="webgl-utils.js"></script>
+<script src="glMatrix-0.9.5.min.js"></script>
+<script src="webgl-utils.js"></script>
+<script src="oneWord.js"></script>
 </head>
 <body onload="webGLStart();">
     <canvas id="canvas" width="500" height="500"></canvas>
 </body>
 <script>
-var gl = canvas.getContext("webgl");
-var mvMatrix = mat4.create();
-var mvMatrixStack = [];
-var pMatrix = mat4.create();
-function degToRad(degrees) { return degrees * Math.PI / 180; }
 var pyramid = {
 	vertices : [ 0.0,  1.0,  0.0, // 上
 				-1.0, -1.0,  1.0, // 前左
@@ -89,6 +85,11 @@ var shader_vs = `
         gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
         vColor = aVertexColor;
     }`
+var gl = canvas.getContext("webgl");
+var pMatrix = mat4.create();
+var mvMatrix = mat4.create();
+var mvMatrixStack = [];
+function degToRad(degrees) { return degrees * Math.PI / 180; }
 function initGL() {
 	try {
 		gl.viewportWidth = canvas.width;
@@ -192,7 +193,7 @@ pyramid.draw = function () {
 	gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, pyramidVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, pyramidVertexIndexBuffer);
 	gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mvMatrix);
-	gl.drawElements(gl.TRIANGLES, pyramidVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+	gl.drawElements(gl.TRIANGLES, pyramid.indices.length, gl.UNSIGNED_SHORT, 0);
 }
 cube.draw = function () {
 	gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer);
@@ -201,7 +202,7 @@ cube.draw = function () {
 	gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, cubeVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer);
 	gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mvMatrix);
-	gl.drawElements(gl.TRIANGLES, cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+	gl.drawElements(gl.TRIANGLES, cube.indices.length, gl.UNSIGNED_SHORT, 0);
 }
 function setOrigin(pos) {
 	mat4.identity(mvMatrix);
@@ -215,6 +216,8 @@ function rotate(dir, angle) {
 }
 function drawScene(ms) {
 	drawBackground(); var time = ms /1000;
+//	console.log(time);
+//	if(time) exit;
 	setOrigin([-2.5, -2.5, -12]);
 		rotate([1, 1, 0], 90 * time), pyramid.draw();
 		translate([2,-2,0]), rotate([1, 0, 0], 180), pyramid.draw();
@@ -222,8 +225,8 @@ function drawScene(ms) {
 	setOrigin([-2.5, 2.5, -12]), rotate([1, 1, 1], 75 * time), cube.draw();
 	setOrigin([2.5, -2.5, -12]), rotate([1, 1, 1], -75 * time); 
 		cubeVertexIndexBuffer.numItems-=12, cube.draw(), cubeVertexIndexBuffer.numItems+=12;
-		translate([2,0,0]), rotate([0, 0, 1], -90), pyramid.draw();
-	requestAnimFrame(drawScene);
+		translate([2,0,0]), rotate([0, 0, 1], -90), rotate([0, 1, 0], 90 * time), pyramid.draw();
+	requestAnimFrame(drawScene); // the function in webgl-utils.js
 }
 function webGLStart() {
 	initGL();
