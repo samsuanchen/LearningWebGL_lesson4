@@ -91,7 +91,7 @@ vm.branch = function(){			// branch to relative ip addr in the cell pointed by i
 	vm.head.ip += vm.head.parm[vm.head.ip];
 }
 vm.zBranch = function(){		// branch to relative ip addr if TOS is 0 or undefined
-	if( vm.rStk.pop() ) vm.head.ip++;
+	if( vm.dStk.pop() ) vm.head.ip++;
 	else vm.head.ip += vm.head.parm[vm.head.ip];
 }
 vm.doFor = function(){			// push the loop counter for-next to return stack
