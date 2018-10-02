@@ -219,8 +219,8 @@ function drawScene(ms) {
 //	console.log(time);
 //	if(time) exit;
 	setOrigin([-2.5, -2.5, -12]);
-		rotate([1, 1, 0], 90 * time), pyramid.draw();
-		translate([2,-2,0]), rotate([1, 0, 0], 180), pyramid.draw();
+		rotate([1, 1, 0], 90 * time), pyramid.indices.length-=6, pyramid.draw();
+		translate([2,-2,0]), rotate([1, 0, 0], 180), pyramid.draw(), pyramid.indices.length+=6;
 	setOrigin([2.5, 2.5, -12]), rotate([1, 1, 0], -90 * time), pyramid.draw();
 	setOrigin([-2.5, 2.5, -12]), rotate([1, 1, 1], 75 * time), cube.draw();
 	setOrigin([2.5, -2.5, -12]), rotate([1, 1, 1], -75 * time); 
