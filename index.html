@@ -224,7 +224,7 @@ function drawScene(ms) {
 	setOrigin([2.5, 2.5, -12]), rotate([1, 1, 0], -90 * time), pyramid.draw();
 	setOrigin([-2.5, 2.5, -12]), rotate([1, 1, 1], 75 * time), cube.draw();
 	setOrigin([2.5, -2.5, -12]), rotate([1, 1, 1], -75 * time); 
-		cubeVertexIndexBuffer.numItems-=12, cube.draw(), cubeVertexIndexBuffer.numItems+=12;
+		cube.indices.length-=12, cube.draw(), cube.indices.length+=12;
 		translate([2,0,0]), rotate([0, 0, 1], -90), rotate([0, 1, 0], 90 * time), pyramid.draw();
 	requestAnimFrame(drawScene); // the function in webgl-utils.js
 }
