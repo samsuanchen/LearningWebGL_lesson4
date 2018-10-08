@@ -8,13 +8,13 @@
 </head>
 <body onload="webGLStart();">
     <canvas id="canvas" width="500" height="500"></canvas>
-	<center>
-	<hr><font color=red>Bottom Left is a Cube.</font>
+	<hr><hr><font color=red>Bottom Left is a Cube.</font>
 	<hr><font color=blue>Top Right is a Pyramid.</font>
 	<hr><font color=red>Top Left combines 2 Pyramids of no Bottom.</font>
 	<hr><font color=blue>Bottom Right is the Cube of no Top and Bottom with a rotating Pyramid.</font>
-	</center>
-</body>
+	<hr><input id=input size=60 onkeyup=onKeyUp() value='3 pyramid 拆板'>
+	<hr><button onclick=onClick()>eval forth script</button>
+	</body>
 <script>
 var rotateAxis = {
 	vertices : [-1.2, -1.2, -1.2,
@@ -256,6 +256,12 @@ function webGLStart() {
 	initShaders();
 	initBuffers();
 	drawScene(0);
+}
+function onKeyUp(){
+	if(event.key == "Enter") onClick();
+}
+function onClick(){
+	vm.eval(input.value);
 }
 </script>
 </html>
