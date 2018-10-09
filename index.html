@@ -10,7 +10,7 @@
     <canvas id="canvas" width="500" height="500"></canvas>
 	<hr><hr><font color=red>Bottom Left is a Cube.</font>
 	<hr><font color=blue>Top Right is a Pyramid.</font>
-	<hr><font color=red>Top Left combines 2 Pyramids of no Bottom.</font>
+	<hr><font color=red>Top Left is a Pyramid of no Bottom combined with another up side down Pyramid having a spinnig cube on Top.</font>
 	<hr><font color=blue>Bottom Right is the Cube of no Top and Bottom with a rotating Pyramid.</font>
 	<hr><input id=input size=60 onkeyup=onKeyUp() value='3 pyramid 拆板'>
 	<hr><button onclick=onClick()>eval forth or javascript</button>
@@ -287,11 +287,8 @@ function drawScene(ms) {
 	drawBackground(); var time = ms /1000;
 	pyramid.indices.length-=6;
 		setOrigin([-1.6, 4, -20]); rotate(rotateAxis0.vertices.slice(3), 90 * time);
-		pyramid.draw(); 
-		mat4.set(mvMatrix, copy); translate([1,-1,0]);
-		rotateAxis2.draw();
-		mat4.set(copy, mvMatrix);
-		translate([2,-2,0]); rotate(rotateAxis2.vertices.slice(3), 180);
+		pyramid.draw(); translate([1,-1,0]);
+		rotateAxis2.draw(); translate([1,-1,0]); rotate(rotateAxis2.vertices.slice(3), 180);
 		pyramid.draw(); translate([0,2,0]);
 		rotateAxis1.draw(); rotate(rotateAxis1.vertices.slice(3), 200 * time);
 		cube.draw();

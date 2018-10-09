@@ -29,8 +29,7 @@ vm.panic = function( msg ){		// print message and return vm.error
 vm.cr = function( msg ){		// type message to terminal output buffer
 	vm.print( vm.tob + ( msg || '' ) ), vm.tob = '';
 }
-vm.emit = function( charCode ){	// type message to terminal output buffer
-	vm.print( vm.tob + msg ), vm.tob = '';
+vm.emit = function( charCode ){	// emit a char to terminal output buffer
 	if( charCode == 13 )
 		vm.cr();
 	else
@@ -281,10 +280,12 @@ vm.init(`
  code ( ( <string> -- ) vm.getToken( ")" ); end-code immediate 
  code \\ ( <string> -- ) vm.getToken( String.fromCharCode(10) ); end-code immediate \\ ignore string until end of line
  code cr ( -- ) vm.cr(); end-code 
- code emit ( charCode -- ) vm.emit( vm.dStk.pop() ); end-code 
+ code space ( -- ) vm.emit( 0x20 ); end-code 
+ code spaces ( n -- ) var n=vm.dStk.pop(); for(var i=0; i<n; i++) vm.emit( 0x20 ); end-code 
+ code emit ( charCode -- ) vm.emit( vm.dStk.pop() ); end-code
  code type ( string -- ) vm.type( vm.dStk.pop() ); end-code 
  code .( ( <string> -- ) vm.type( vm.getToken( ")" ) ); end-code 
- code . ( n -- ) vm.type( vm.toString( vm.dStk.pop() ) ); end-code 
+ code . ( n -- ) vm.type( vm.toString( vm.dStk.pop() )+" " ); end-code 
  code .r ( n w -- ) var d = vm.dStk, w = d.pop(); vm.type( vm.dotR( d.pop(), w, " " ) ); end-code 
  code .0r ( n w -- ) var d = vm.dStk, w = d.pop(); vm.type( vm.dotR( d.pop(), w, "0" ) ); end-code 
  code + ( a b -- a+b ) var d = vm.dStk; d[d.length-2] += d.pop(); end-code 
@@ -317,6 +318,27 @@ vm.init(`
  code literal ( n -- ) vm.compileNumber( vm.dStk.pop() ); end-code immediate 
  code execute ( w -- ) vm.executeWord( vm.dStk.pop() ); end-code 
  code alias ( w <name> -- ) var w = vm.dStk.pop(), n = vm.createWord(); n.code = w.code; if( w.parm ) n.parm = w.parm; vm.addWord( n ); end-code 
+ code > ( a b -- a>b ) vm.dStk.push(vm.dStk.pop()<vm.dStk.pop()); end-code
+ code < ( a b -- a<b ) vm.dStk.push(vm.dStk.pop()>vm.dStk.pop()); end-code
+ code >= ( a b -- a>=b ) vm.dStk.push(vm.dStk.pop()<=vm.dStk.pop()); end-code
+ code <= ( a b -- a<=b ) vm.dStk.push(vm.dStk.pop()>=vm.dStk.pop()); end-code
+ code = ( a b -- a=b ) vm.dStk.push(vm.dStk.pop()==vm.dStk.pop()); end-code
+ code <> ( a b -- a<>b ) vm.dStk.push(vm.dStk.pop()!=vm.dStk.pop()); end-code
+ code 1+ vm.dStk[vm.dStk.length-1]++; end-code
+ code 1- vm.dStk[vm.dStk.length-1]--; end-code
+ code 2+ vm.dStk[vm.dStk.length-1]+=2; end-code
+ code 2- vm.dStk[vm.dStk.length-1]-=2; end-code
+ code 2dup vm.dStk.push(vm.dStk[vm.dStk.length-2]); vm.dStk.push(vm.dStk[vm.dStk.length-2]); end-code
+ code 2drop vm.dStk.length-=2; end-code
+ code 3drop vm.dStk.length-=3; end-code
+ code 2over vm.dStk.push(vm.dStk[vm.dStk.length-4]); vm.dStk.push(vm.dStk[vm.dStk.length-4]); end-code
+ code depth vm.dStk.push(vm.dStk.length); end-code
+ code r@ vm.dStk.push(vm.rStk[vm.rStk.length-1]); end-code
+ ' r@ alias i
+ code r> vm.dStk.push(vm.rStk.pop()); end-code
+ code >r vm.rStk.push(vm.dStk.pop()); end-code
+ code pick ( ni .. n2 n1 n0 i -- ni .. n2 n1 n0 ni )
+   vm.dStk[vm.dStk.length-1]=vm.dStk[vm.dStk.length-vm.dStk[vm.dStk.length-1]-2]; end-code
  ' doRet alias exit ( -- ) 
  : hex ( -- ) 16 base ! ;  : decimal ( -- ) 10 base ! ; 
  : h. ( number -- ) base @ swap hex . base ! ; 
@@ -343,6 +365,7 @@ vm.init(`
  : until ( a -- ) compile doUntil backward, ; immediate 
  : while ( a -- a b ) compile doWhile here 0 , ; immediate 
  : repeat ( a b -- ) compile doRepeat swap backward, forward, ; immediate 
+ : .s depth 1- for r@ pick . next cr ;
  : t9 ( n -- ) 8 for dup 9 i - * 3 .r next drop cr ; 
  : t99 ( -- ) cr 8 for 9 i - t9 next ; t99 
  code word ( delimiter -- str ) vm.dStk.push(vm.getToken(vm.dStk.pop())); end-code
