@@ -1,0 +1,15 @@
+: ⚊ x .5 - t cos * y .5 - t sin * - ;
+: ⚋ x .5 - t sin * y .5 - t cos * + ;
+: √ sqrt ;
+: □ 2 pow ;
+: b&w dup dup ;
+
+: r .3 t sin .15 * + ; : s 1.3 ;
+: r2 r 2 / ; : r3 r 6 / ; : s2 s 2 * ;
+.4
+⚊ □ ⚋ □ + √ r < ⚊ 0 < if + else - then
+⚊ □ ⚋ r2 - □ + √ r2 < s * +
+⚊ □ ⚋ r2 + □ + √ r2 < s * -
+⚊ □ ⚋ r2 + □ + √ r3 < s2 * + 
+⚊ □ ⚋ r2 - □ + √ r3 < s2 * -
+b&w
