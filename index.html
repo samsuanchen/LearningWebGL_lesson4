@@ -283,8 +283,8 @@ function translate(pos) { mat4.translate(mvMatrix, pos); }
 function rotate(dir, angle) { mat4.rotate(mvMatrix, degToRad(angle), dir); }
 
 var copy = mat4.create(); 
-function drawScene(ms) {
-	drawBackground(); var time = ms /1000;
+function drawScene() {
+	drawBackground(); var time = new Date().getTime() /1000;
 	pyramid.indices.length-=6;
 		setOrigin([-1.6, 4, -20]); rotate(rotateAxis0.vertices.slice(3), 90 * time);
 		pyramid.draw(); translate([1,-1,0]);
@@ -303,13 +303,17 @@ function drawScene(ms) {
 		cube.indices.length+=12; translate([2,0,0]); rotate([0, 0, 1], -90);
 		rotateAxis1.draw(); rotate(rotateAxis1.vertices.slice(3), 90 * time);
 		pyramid.draw();
-	requestAnimFrame(drawScene); // the function in webgl-utils.js
+}
+function animate(){
+	drawScene()
+	requestAnimFrame(animate); // the function requestAnimFrame is in webgl-utils.js
 }
 function webGLStart() {
 	initGL();
 	initShaders();
 	initBuffers();
-	drawScene(0);
+	drawScene();
+	animate();
 }
 function onKeyUp(){
 	if(event.key == "Enter") onClick();
