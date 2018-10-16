@@ -4,21 +4,35 @@
 <title>LearningWebGL_lesson4</title>
 <script src="glMatrix-0.9.5.min.js"></script>
 <script src="webgl-utils.js"></script>
-<script src="oneWord.js"></script>
+<script src="oneWordVM.js"></script>
 </head>
 <body onload="webGLStart();">
     <canvas id="canvas" width="500" height="500"></canvas>
-	<center>
-	<hr><font color=red>Bottom Left is a Cube.</font>
+	<hr><hr><font color=red>Bottom Left is a Cube.</font>
 	<hr><font color=blue>Top Right is a Pyramid.</font>
-	<hr><font color=red>Top Left combines 2 Pyramids of no Bottom.</font>
+	<hr><font color=red>Top Left is a Pyramid of no Bottom combined with another up side down Pyramid having a spinnig cube on Top.</font>
 	<hr><font color=blue>Bottom Right is the Cube of no Top and Bottom with a rotating Pyramid.</font>
-	</center>
-</body>
+	<hr><input id=input size=60 onkeyup=onKeyUp() value='3 pyramid 拆板'>
+	<hr><button onclick=onClick()>eval forth or javascript</button>
+	</body>
 <script>
-var rotateAxis = {
+var rotateAxis0 = {
 	vertices : [-1.2, -1.2, -1.2,
 				 1.2,  1.2,  1.2],
+	colors :   [ 1.0,  1.0,  1.0, 
+				 1.0,  1.0,  1.0],
+	indices :  [ 0, 1 ]
+};
+var rotateAxis1 = {
+	vertices : [ 0.0, -1.4,  0.0,
+				 0.0,  1.4,  0.0],
+	colors :   [ 1.0,  1.0,  1.0, 
+				 1.0,  1.0,  1.0],
+	indices :  [ 0, 1 ]
+};
+var rotateAxis2 = {
+	vertices : [ 0.0,  0.0, -1.2,
+				 0.0,  0.0,  1.2],
 	colors :   [ 1.0,  1.0,  1.0, 
 				 1.0,  1.0,  1.0],
 	indices :  [ 0, 1 ]
@@ -155,23 +169,38 @@ function setMatrixUniforms() {
 	gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, pMatrix);
 	gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mvMatrix);
 }
+var	vertexPositionBufferItemSize = 3;
 function initBuffers() {
-	rotateAxis.vertexPositionBuffer = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, rotateAxis.vertexPositionBuffer);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(rotateAxis.vertices), gl.STATIC_DRAW);
-	rotateAxis.vertexPositionBuffer.itemSize = 3;
-	rotateAxis.vertexColorBuffer = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, rotateAxis.vertexColorBuffer);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(rotateAxis.colors), gl.STATIC_DRAW);
-	rotateAxis.vertexColorBuffer.itemSize = 3;
-	rotateAxis.vertexIndexBuffer = gl.createBuffer();
-	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, rotateAxis.vertexIndexBuffer);
-	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(rotateAxis.indices), gl.STATIC_DRAW);
+	rotateAxis0.vertexPositionBuffer = gl.createBuffer();
+	rotateAxis0.vertexColorBuffer = gl.createBuffer();
+	gl.bindBuffer(gl.ARRAY_BUFFER, rotateAxis0.vertexColorBuffer);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(rotateAxis0.colors), gl.STATIC_DRAW);
+	rotateAxis0.vertexColorBuffer.itemSize = 3;
+	rotateAxis0.vertexIndexBuffer = gl.createBuffer();
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, rotateAxis0.vertexIndexBuffer);
+	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(rotateAxis0.indices), gl.STATIC_DRAW);
+	
+	rotateAxis1.vertexPositionBuffer = gl.createBuffer();
+	rotateAxis1.vertexColorBuffer = gl.createBuffer();
+	gl.bindBuffer(gl.ARRAY_BUFFER, rotateAxis1.vertexColorBuffer);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(rotateAxis1.colors), gl.STATIC_DRAW);
+	rotateAxis1.vertexColorBuffer.itemSize = 3;
+	rotateAxis1.vertexIndexBuffer = gl.createBuffer();
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, rotateAxis1.vertexIndexBuffer);
+	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(rotateAxis1.indices), gl.STATIC_DRAW);
+	
+	rotateAxis2.vertexPositionBuffer = gl.createBuffer();
+	rotateAxis2.vertexColorBuffer = gl.createBuffer();
+	gl.bindBuffer(gl.ARRAY_BUFFER, rotateAxis2.vertexColorBuffer);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(rotateAxis2.colors), gl.STATIC_DRAW);
+	rotateAxis2.vertexColorBuffer.itemSize = 3;
+	rotateAxis2.vertexIndexBuffer = gl.createBuffer();
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, rotateAxis2.vertexIndexBuffer);
+	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(rotateAxis2.indices), gl.STATIC_DRAW);
 	
 	pyramid.vertexPositionBuffer = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, pyramid.vertexPositionBuffer);
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(pyramid.vertices), gl.STATIC_DRAW);
-	pyramid.vertexPositionBuffer.itemSize = 3;
 	pyramid.vertexColorBuffer = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, pyramid.vertexColorBuffer);
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(pyramid.colors), gl.STATIC_DRAW);
@@ -183,7 +212,6 @@ function initBuffers() {
 	cube.vertexPositionBuffer = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, cube.vertexPositionBuffer);
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(cube.vertices), gl.STATIC_DRAW);
-	cube.vertexPositionBuffer.itemSize = 3;
 	cube.vertexColorBuffer = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, cube.vertexColorBuffer);
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(cube.colors), gl.STATIC_DRAW);
@@ -200,18 +228,39 @@ function drawBackground() {
 	mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
 	gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, pMatrix);
 }
-rotateAxis.draw = function () {
-	gl.bindBuffer(gl.ARRAY_BUFFER, rotateAxis.vertexPositionBuffer);
-	gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, rotateAxis.vertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
-	gl.bindBuffer(gl.ARRAY_BUFFER, rotateAxis.vertexColorBuffer);
-	gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, rotateAxis.vertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
-	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, rotateAxis.vertexIndexBuffer);
+rotateAxis0.draw = function () {
+	gl.bindBuffer(gl.ARRAY_BUFFER, rotateAxis0.vertexPositionBuffer);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(rotateAxis0.vertices), gl.STATIC_DRAW);
+	gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, vertexPositionBufferItemSize, gl.FLOAT, false, 0, 0);
+	gl.bindBuffer(gl.ARRAY_BUFFER, rotateAxis0.vertexColorBuffer);
+	gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, rotateAxis0.vertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, rotateAxis0.vertexIndexBuffer);
 	gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mvMatrix);
-	gl.drawElements(gl.LINES, rotateAxis.indices.length, gl.UNSIGNED_SHORT, 0);
+	gl.drawElements(gl.LINES, rotateAxis0.indices.length, gl.UNSIGNED_SHORT, 0);
+}
+rotateAxis1.draw = function () {
+	gl.bindBuffer(gl.ARRAY_BUFFER, rotateAxis1.vertexPositionBuffer);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(rotateAxis1.vertices), gl.STATIC_DRAW);
+	gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, vertexPositionBufferItemSize, gl.FLOAT, false, 0, 0);
+	gl.bindBuffer(gl.ARRAY_BUFFER, rotateAxis1.vertexColorBuffer);
+	gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, rotateAxis1.vertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, rotateAxis1.vertexIndexBuffer);
+	gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mvMatrix);
+	gl.drawElements(gl.LINES, rotateAxis1.indices.length, gl.UNSIGNED_SHORT, 0);
+}
+rotateAxis2.draw = function () {
+	gl.bindBuffer(gl.ARRAY_BUFFER, rotateAxis2.vertexPositionBuffer);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(rotateAxis2.vertices), gl.STATIC_DRAW);
+	gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, vertexPositionBufferItemSize, gl.FLOAT, false, 0, 0);
+	gl.bindBuffer(gl.ARRAY_BUFFER, rotateAxis2.vertexColorBuffer);
+	gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, rotateAxis2.vertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, rotateAxis2.vertexIndexBuffer);
+	gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mvMatrix);
+	gl.drawElements(gl.LINES, rotateAxis2.indices.length, gl.UNSIGNED_SHORT, 0);
 }
 pyramid.draw = function () {
 	gl.bindBuffer(gl.ARRAY_BUFFER, pyramid.vertexPositionBuffer);
-	gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, pyramid.vertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+	gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, vertexPositionBufferItemSize, gl.FLOAT, false, 0, 0);
 	gl.bindBuffer(gl.ARRAY_BUFFER, pyramid.vertexColorBuffer);
 	gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, pyramid.vertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, pyramid.vertexIndexBuffer);
@@ -220,7 +269,7 @@ pyramid.draw = function () {
 }
 cube.draw = function () {
 	gl.bindBuffer(gl.ARRAY_BUFFER, cube.vertexPositionBuffer);
-	gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, cube.vertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+	gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, vertexPositionBufferItemSize, gl.FLOAT, false, 0, 0);
 	gl.bindBuffer(gl.ARRAY_BUFFER, cube.vertexColorBuffer);
 	gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, cube.vertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cube.vertexIndexBuffer);
@@ -228,34 +277,49 @@ cube.draw = function () {
 	gl.drawElements(gl.TRIANGLES, cube.indices.length, gl.UNSIGNED_SHORT, 0);
 }
 function setOrigin(pos) { mat4.identity(mvMatrix); mat4.translate(mvMatrix, pos);
-	rotateAxis.draw();
+	rotateAxis0.draw();
 }
 function translate(pos) { mat4.translate(mvMatrix, pos); }
 function rotate(dir, angle) { mat4.rotate(mvMatrix, degToRad(angle), dir); }
-function drawScene(ms) {
-	drawBackground(); var time = ms /1000;
+
+var copy = mat4.create(); 
+function drawScene() {
+	drawBackground(); var time = new Date().getTime() /1000;
 	pyramid.indices.length-=6;
-		setOrigin([-1.8, 1.3, -13]), rotate(rotateAxis.vertices.slice(3), 90 * time);
-		pyramid.draw(), translate([2,-2,0]), rotate([1, 0, 0], 180);
-		pyramid.draw();
-	pyramid.indices.length+=6;
-	setOrigin([2.8, 2.8, -13]), rotate(rotateAxis.vertices.slice(3), -90 * time);
-		pyramid.draw();
-	setOrigin([-2.8,-2.8, -13]), rotate(rotateAxis.vertices.slice(3), 75 * time);
+		setOrigin([-1.6, 4, -20]); rotate(rotateAxis0.vertices.slice(3), 90 * time);
+		pyramid.draw(); translate([1,-1,0]);
+		rotateAxis2.draw(); translate([1,-1,0]); rotate(rotateAxis2.vertices.slice(3), 180);
+		pyramid.draw(); translate([0,2,0]);
+		rotateAxis1.draw(); rotate(rotateAxis1.vertices.slice(3), 200 * time);
 		cube.draw();
-	setOrigin([2.2, -2.2, -13]), rotate(rotateAxis.vertices.slice(3), -75 * time); 
+	pyramid.indices.length+=6;
+	setOrigin([2.8, 2.8, -13]); rotate(rotateAxis0.vertices.slice(3), -90 * time);
+		pyramid.draw();
+	setOrigin([-2.8,-2.8, -13]); rotate(rotateAxis0.vertices.slice(3), 75 * time);
+		cube.draw();
+	setOrigin([2.2, -2.2, -13]); rotate(rotateAxis0.vertices.slice(3), -75 * time); 
 		cube.indices.length-=12;
 			cube.draw();
-		cube.indices.length+=12;
-		translate([2,0,0]), rotate([0, 0, 1], -90), rotate([0, 1, 0], 90 * time);
+		cube.indices.length+=12; translate([2,0,0]); rotate([0, 0, 1], -90);
+		rotateAxis1.draw(); rotate(rotateAxis1.vertices.slice(3), 90 * time);
 		pyramid.draw();
-	requestAnimFrame(drawScene); // the function in webgl-utils.js
+}
+function animate(){
+	drawScene()
+	requestAnimFrame(animate); // the function requestAnimFrame is in webgl-utils.js
 }
 function webGLStart() {
 	initGL();
 	initShaders();
 	initBuffers();
-	drawScene(0);
+	drawScene();
+	animate();
+}
+function onKeyUp(){
+	if(event.key == "Enter") onClick();
+}
+function onClick(){
+	vm.eval(input.value);
 }
 </script>
 </html>
