@@ -9,7 +9,7 @@
 <body onload="webGLStart();">
 	<canvas id="canvas" width="250" height="250"></canvas>
 	<input id="input" size="60" onkeyup="onKeyUp()" hint="forth or javascript"><br>
-	<button onclick="onClick()">eval</button>
+	<button onclick="onClick()">eval javaScript or forth</button>
 	<button id="bAutoRun" onclick="autoRun()">autoRun</button><br> 0 腰﹍
 	min <input id="rangeMi0" value="-180" size="1" onkeyup="changeMi0()">
 	max <input id="rangeMa0" value="180" size="1" onkeyup="changeMa0()">
@@ -115,37 +115,37 @@
 <script src="../rangeslider.js-2.3.0/rangeslider.js"></script>
 <script>
 var cube = {
-	vertices : [-1.0, -1.0,  1.0,
-				 1.0, -1.0,  1.0,
-				 1.0,  1.0,  1.0,
-				-1.0,  1.0,  1.0, // Front face
-				-1.0, -1.0, -1.0,
-				-1.0,  1.0, -1.0,
-				 1.0,  1.0, -1.0,
-				 1.0, -1.0, -1.0, // Back face	
-				-1.0,  1.0, -1.0,
-				-1.0,  1.0,  1.0,
-				 1.0,  1.0,  1.0,
-				 1.0,  1.0, -1.0, // Top face
-				-1.0, -1.0, -1.0,
-				 1.0, -1.0, -1.0,
-				 1.0, -1.0,  1.0,
-				-1.0, -1.0,  1.0, // Bottom face
-				 1.0, -1.0, -1.0,
-				 1.0,  1.0, -1.0,
-				 1.0,  1.0,  1.0,
-				 1.0, -1.0,  1.0, // Right face
-				-1.0, -1.0, -1.0,
-				-1.0, -1.0,  1.0,
-				-1.0,  1.0,  1.0,
-				-1.0,  1.0, -1.0, // Left face
+	vertices : [-1, -1,  1,
+				 1, -1,  1,
+				 1,  1,  1,
+				-1,  1,  1, // Front face
+				-1, -1, -1,
+				-1,  1, -1,
+				 1,  1, -1,
+				 1, -1, -1, // Back face	
+				-1,  1, -1,
+				-1,  1,  1,
+				 1,  1,  1,
+				 1,  1, -1, // Top face
+				-1, -1, -1,
+				 1, -1, -1,
+				 1, -1,  1,
+				-1, -1,  1, // Bottom face
+				 1, -1, -1,
+				 1,  1, -1,
+				 1,  1,  1,
+				 1, -1,  1, // Right face
+				-1, -1, -1,
+				-1, -1,  1,
+				-1,  1,  1,
+				-1,  1, -1, // Left face
 			   ],
-	colors :   [ 1.0, 0.0, 0.0,  1.0, 0.0, 0.0,  1.0, 0.0, 0.0,  1.0, 0.0, 0.0, // Front face
-				 1.0, 1.0, 0.0,  1.0, 1.0, 0.0,  1.0, 1.0, 0.0,  1.0, 1.0, 0.0, // Back face
-				 0.0, 1.0, 0.0,  0.0, 1.0, 0.0,  0.0, 1.0, 0.0,  0.0, 1.0, 0.0, // Top face
-				 1.0, 0.5, 0.5,  1.0, 0.5, 0.5,  1.0, 0.5, 0.5,  1.0, 0.5, 0.5, // Bottom face
-				 1.0, 0.0, 1.0,  1.0, 0.0, 1.0,  1.0, 0.0, 1.0,  1.0, 0.0, 1.0, // Right face
-				 0.0, 0.0, 1.0,  0.0, 0.0, 1.0,  0.0, 0.0, 1.0,  0.0, 0.0, 1.0, // Left face
+	colors :   [ 1., 0., 0.,  1., 0., 0.,  1., 0., 0.,  1., 0., 0., // Front face
+				 1., 1., 0.,  1., 1., 0.,  1., 1., 0.,  1., 1., 0., // Back face
+				 0., 1., 0.,  0., 1., 0.,  0., 1., 0.,  0., 1., 0., // Top face
+				 1., .5, .5,  1., .5, .5,  1., .5, .5,  1., .5, .5, // Bottom face
+				 1., 0., 1.,  1., 0., 1.,  1., 0., 1.,  1., 0., 1., // Right face
+				 0., 0., 1.,  0., 0., 1.,  0., 0., 1.,  0., 0., 1., // Left face
 			   ],
 	indices :  [ 00, 01, 02,  00, 02, 03, // Front face
 				 04, 05, 06,  04, 06, 07, // Back face
@@ -272,7 +272,7 @@ function drawScene() {
 	drawBackground(); var time = new Date().getTime() /1000;
 	setOrigin([0, 1.5, -25]);
 	
-	rotate([0,1,0], -5+10*Math.cos(time*2));
+	rotate([0,1,0], 10*Math.cos(time*2));
 	
 	mvMatrixPush(); // 上半身
 	
