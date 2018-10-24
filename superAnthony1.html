@@ -17,7 +17,6 @@
 			min="-180"                    // default 0
 			max="180"                  // default 100
 			value="0"                 // default min + (max-min)/2
-		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange0()"
 	>
 	偏 <input id="rangeVal0" value="0" size="1" onkeyup="changeVal0()"><br>1 右肩
@@ -28,7 +27,6 @@
 			min="-180"                    // default 0
 			max="180"                  // default 100
 			value="120"                 // default min + (max-min)/2
-		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange1()"
 	>
 	偏 <input id="rangeVal1" value="120" size="1" onkeyup="changeVal1()"><br>2 右臂
@@ -39,7 +37,6 @@
 			min="-180"                    // default 0
 			max="180"                  // default 100
 			value="-40"                 // default min + (max-min)/2
-		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange2()"
 	>
 	偏 <input id="rangeVal2" value="-40" size="1" onkeyup="changeVal2()"><br>3 左肩
@@ -50,7 +47,6 @@
 			min="-180"                    // default 0
 			max="180"                  // default 100
 			value="170"                 // default min + (max-min)/2
-		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange3()"
 	>
 	偏 <input id="rangeVal3" value="170" size="1" onkeyup="changeVal3()"><br>4 左臂
@@ -61,7 +57,6 @@
 			min="-180"                    // default 0
 			max="180"                  // default 100
 			value="40"                 // default min + (max-min)/2
-		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange4()"
 	>
 	偏 <input id="rangeVal4" value="40" size="1" onkeyup="changeVal4()"><br>5 右腿
@@ -72,7 +67,6 @@
 			min="-180"                    // default 0
 			max="180"                  // default 100
 			value="10"                 // default min + (max-min)/2
-		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange5()"
 	>
 	偏 <input id="rangeVal5" value="10" size="1" onkeyup="changeVal5()"><br>6 右腳
@@ -82,7 +76,7 @@
 			id="range6"
 			min="-180"                    // default 0
 			max="180"                  // default 100
-			value="10"                 // default min + (max-min)/2
+			value="10"                 // default min + (max-min)/
 		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange6()"
 	>
@@ -95,7 +89,6 @@
 			min="-180"                    // default 0
 			max="180"                  // default 100
 			value="-10"                 // default min + (max-min)/2
-		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange7()"
 	>
 	偏 <input id="rangeVal7" value="-10" size="1" onkeyup="changeVal7()"><br>8 左腳
@@ -106,7 +99,6 @@
 			min="-180"                    // default 0
 			max="180"                  // default 100
 			value="-10"                 // default min + (max-min)/2
-		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange8()"
 	>
 	偏 <input id="rangeVal8" value="-10" size="1" onkeyup="changeVal8()">
@@ -492,12 +484,6 @@ function changeVal7(){
 }
 function changeRange7(){
 	rangeVal7.value=Math.max(Math.min(range7.value,range7.max),range7.min);
-}
-function changeMi8(){
-	range8.min=parseInt(amplitude8.value).value; changeRange8();
-}
-function changeMa8(){
-	range8.max=parseInt(speed8.value).value; changeRange8();
 }
 function changeVal8(){
 	range8.value=Math.max(Math.min(rangeVal8.value,range8.max),range8.min);
