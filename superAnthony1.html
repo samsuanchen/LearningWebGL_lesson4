@@ -10,7 +10,7 @@
 	<canvas id="canvas" width="250" height="250"></canvas>
 	<input id="input" size="60" onkeyup="onKeyUp()" hint="forth or javascript"><br>
 	<button onclick="onClick()">eval</button>
-	<button id="bAutoRun" onclick="autoRun()">autoRun</button><br> 0 轉﹍腰
+	<button id="bAutoRun" onclick="autoRun()">autoRun</button><br> 0 腰﹍
 	min <input id="rangeMi0" value="-180" size="1" onkeyup="changeMi0()">
 	max <input id="rangeMa0" value="180" size="1" onkeyup="changeMa0()">
 	<input	type="range"
@@ -21,51 +21,51 @@
 		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange0()"
 	>
-	value <input id="rangeVal0" value="0" size="1" onkeyup="changeVal0()"><br>1 轉右肩
+	轉 <input id="rangeVal0" value="0" size="1" onkeyup="changeVal0()"><br>1 右肩
 	min <input id="rangeMi1" value="-180" size="1" onkeyup="changeMi1()">
 	max <input id="rangeMa1" value="180" size="1" onkeyup="changeMa1()">
 	<input	type="range"
 			id="range1"
 			min="-180"                    // default 0
 			max="180"                  // default 100
-			value="0"                 // default min + (max-min)/2
+			value="40"                 // default min + (max-min)/2
 		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange1()"
 	>
-	value <input id="rangeVal1" value="0" size="1" onkeyup="changeVal1()"><br>2 轉右臂
+	轉 <input id="rangeVal1" value="40" size="1" onkeyup="changeVal1()"><br>2 右臂
 	min <input id="rangeMi2" value="-180" size="1" onkeyup="changeMi2()">
 	max <input id="rangeMa2" value="180" size="1" onkeyup="changeMa2()">
 	<input	type="range"
 			id="range2"
 			min="-180"                    // default 0
 			max="180"                  // default 100
-			value="-20"                 // default min + (max-min)/2
+			value="-40"                 // default min + (max-min)/2
 		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange2()"
 	>
-	value <input id="rangeVal2" value="-20" size="1" onkeyup="changeVal2()"><br>3 轉左肩
+	轉 <input id="rangeVal2" value="-40" size="1" onkeyup="changeVal2()"><br>3 左肩
 	min <input id="rangeMi3" value="-180" size="1" onkeyup="changeMi3()">
 	max <input id="rangeMa3" value="180" size="1" onkeyup="changeMa3()">
 	<input	type="range"
 			id="range3"
 			min="-180"                    // default 0
 			max="180"                  // default 100
-			value="0"                 // default min + (max-min)/2
+			value="-180"                 // default min + (max-min)/2
 		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange3()"
 	>
-	value <input id="rangeVal3" value="0" size="1" onkeyup="changeVal3()"><br>4 轉左臂
+	轉 <input id="rangeVal3" value="-180" size="1" onkeyup="changeVal3()"><br>4 左臂
 	min <input id="rangeMi4" value="-180" size="1" onkeyup="changeMi4()">
 	max <input id="rangeMa4" value="180" size="1" onkeyup="changeMa4()">
 	<input	type="range"
 			id="range4"
 			min="-180"                    // default 0
 			max="180"                  // default 100
-			value="20"                 // default min + (max-min)/2
+			value="40"                 // default min + (max-min)/2
 		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange4()"
 	>
-	value <input id="rangeVal4" value="20" size="1" onkeyup="changeVal4()"><br>5 轉右腿
+	轉 <input id="rangeVal4" value="40" size="1" onkeyup="changeVal4()"><br>5 右腿
 	min <input id="rangeMi5" value="-180" size="1" onkeyup="changeMi5()">
 	max <input id="rangeMa5" value="180" size="1" onkeyup="changeMa5()">
 	<input	type="range"
@@ -76,7 +76,7 @@
 		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange5()"
 	>
-	value <input id="rangeVal5" value="0" size="1" onkeyup="changeVal5()"><br>6 轉右腳
+	轉 <input id="rangeVal5" value="0" size="1" onkeyup="changeVal5()"><br>6 右腳
 	min <input id="rangeMi6" value="-180" size="1" onkeyup="changeMi6()">
 	max <input id="rangeMa6" value="180" size="1" onkeyup="changeMa6()">
 	<input	type="range"
@@ -87,7 +87,7 @@
 		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange6()"
 	>
-	value <input id="rangeVal6" value="0" size="1" onkeyup="changeVal6()"><br>7 轉左腿
+	轉 <input id="rangeVal6" value="0" size="1" onkeyup="changeVal6()"><br>7 左腿
 	
 	min <input id="rangeMi7" value="-180" size="1" onkeyup="changeMi7()">
 	max <input id="rangeMa7" value="180" size="1" onkeyup="changeMa7()">
@@ -99,7 +99,7 @@
 		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange7()"
 	>
-	value <input id="rangeVal7" value="0" size="1" onkeyup="changeVal7()"><br>8 轉左腳
+	轉 <input id="rangeVal7" value="0" size="1" onkeyup="changeVal7()"><br>8 左腳
 	min <input id="rangeMi8" value="-180" size="1" onkeyup="changeMi8()">
 	max <input id="rangeMa8" value="180" size="1" onkeyup="changeMa8()">
 	<input	type="range"
@@ -110,7 +110,7 @@
 		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange8()"
 	>
-	value <input id="rangeVal8" value="0" size="1" onkeyup="changeVal8()">
+	轉 <input id="rangeVal8" value="0" size="1" onkeyup="changeVal8()">
 <script src="jQuery_v3.3.1.min.js"></script>
 <script src="../rangeslider.js-2.3.0/rangeslider.js"></script>
 <script>
@@ -316,28 +316,28 @@ function drawScene() {
 	mvMatrixPush(); // 右下肢
 	
 	translate([1.3,-1,0]);
-	cube.draw(); // 跨
+	cube.draw(); // 右跨
 	
 	translate([0,-2.1,0]);
-	rotate([1,0,0], parseInt(rangeVal5.value)+15*Math.sin(time*2)); /*5*/
-	cube.draw(); // 腿
+	rotate([1,0,0], parseInt(rangeVal5.value)+15*Math.sin(time*2)+10); /*5*/
+	cube.draw(); // 右腿
 	
 	translate([0,-2.1,0]);
-	rotate([1,0,0], parseInt(rangeVal6.value)+15*Math.sin(time*3)); /*6*/
-	cube.draw(); // 腳
+	rotate([1,0,0], parseInt(rangeVal6.value)+10*Math.sin(time*3)+10); /*6*/
+	cube.draw(); // 右腳
 	
 	mvMatrixPop(); // 左下肢
 	
 	translate([-3.5,-1,0]);
-	cube.draw(); // 跨
+	cube.draw(); // 左跨
 	
 	translate([0,-2.1,0]);
-	rotate([-1,0,0], parseInt(rangeVal7.value)+15*Math.sin(time*2)); /*7*/
-	cube.draw(); // 腿
+	rotate([-1,0,0], parseInt(rangeVal7.value)+15*Math.sin(time*2)-10); /*7*/
+	cube.draw(); // 左腿
 	
 	translate([0,-2.1,0]);
-	rotate([-1,0,0],parseInt(rangeVal8.value)+15*Math.sin(time*3)); /*8*/
-	cube.draw(); // 腳
+	rotate([-1,0,0], parseInt(rangeVal8.value)+10*Math.sin(time*3)-10); /*8*/
+	cube.draw(); // 左腳
 }
 function animate(){
 	if(bAutoRun.innerHTML!="autoRun")
