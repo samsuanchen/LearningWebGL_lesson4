@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)http://learningwebgl.com/lessons/lesson04/index.html -->
+<!-- derived from url=(0052)http://learningwebgl.com/lessons/lesson04/index.html -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>webGL_lesson4</title>
 <script src="glMatrix-0.9.5.min.js"></script>
 <script src="webgl-utils.js"></script>
-<script src="oneWordVM.js"></script>
+<script src="oneWordVM.js">// having the vm f </script>
 </head>
 <body onload="webGLStart();">
 	<canvas id="canvas" width="250" height="250"></canvas>
-	<input id="input" size="60" onkeyup="onKeyUp()" hint="forth or javascript"><br>
+	<input id="input" size="60" onkeyup="onScriptKeyUp()" hint="forth or javascript"><br>
 	<button onclick="onClick()">eval javaScript or forth</button>
 	<button id="bAutoRun" onclick="autoRun()">autoRun</button><br> 0 腰﹍
 	轉幅 <input id="amplitude0" value="30" size="1">
 	速 <input id="speed0" value="2" size="1">
 	<input	id="range0" type="range"
-			min="-180"                    // default 0
-			max="180"                  // default 100
+			min="-360"                    // default 0
+			max="360"                  // default 100
 			value="0"                 // default min + (max-min)/2
 			onchange="changeRange0()"
 	>
@@ -24,8 +24,8 @@
 	速 <input id="speed1" value="2" size="1">
 	<input	type="range"
 			id="range1"
-			min="-180"                    // default 0
-			max="180"                  // default 100
+			min="-360"                    // default 0
+			max="360"                  // default 100
 			value="120"                 // default min + (max-min)/2
 			onchange="changeRange1()"
 	>
@@ -34,8 +34,8 @@
 	速 <input id="speed2" value="3" size="1">
 	<input	type="range"
 			id="range2"
-			min="-180"                    // default 0
-			max="180"                  // default 100
+			min="-360"                    // default 0
+			max="360"                  // default 100
 			value="-40"                 // default min + (max-min)/2
 			onchange="changeRange2()"
 	>
@@ -44,8 +44,8 @@
 	速 <input id="speed3" value="2" size="1">
 	<input	type="range"
 			id="range3"
-			min="-180"                    // default 0
-			max="180"                  // default 100
+			min="-360"                    // default 0
+			max="360"                  // default 100
 			value="170"                 // default min + (max-min)/2
 			onchange="changeRange3()"
 	>
@@ -54,8 +54,8 @@
 	速 <input id="speed4" value="3" size="1">
 	<input	type="range"
 			id="range4"
-			min="-180"                    // default 0
-			max="180"                  // default 100
+			min="-360"                    // default 0
+			max="360"                  // default 100
 			value="40"                 // default min + (max-min)/2
 			onchange="changeRange4()"
 	>
@@ -64,8 +64,8 @@
 	速 <input id="speed5" value="2" size="1">
 	<input	type="range"
 			id="range5"
-			min="-180"                    // default 0
-			max="180"                  // default 100
+			min="-360"                    // default 0
+			max="360"                  // default 100
 			value="10"                 // default min + (max-min)/2
 			onchange="changeRange5()"
 	>
@@ -74,8 +74,8 @@
 	速 <input id="speed6" value="3" size="1">
 	<input	type="range"
 			id="range6"
-			min="-180"                    // default 0
-			max="180"                  // default 100
+			min="-360"                    // default 0
+			max="360"                  // default 100
 			value="10"                 // default min + (max-min)/
 		//	data-orientation="vertical" // default horizontal
 			onchange="changeRange6()"
@@ -86,8 +86,8 @@
 	速 <input id="speed7" value="2" size="1">
 	<input	type="range"
 			id="range7"
-			min="-180"                    // default 0
-			max="180"                  // default 100
+			min="-360"                    // default 0
+			max="360"                  // default 100
 			value="-10"                 // default min + (max-min)/2
 			onchange="changeRange7()"
 	>
@@ -96,8 +96,8 @@
 	速 <input id="speed8" value="3" size="1">
 	<input	type="range"
 			id="range8"
-			min="-180"                    // default 0
-			max="180"                  // default 100
+			min="-360"                    // default 0
+			max="360"                  // default 100
 			value="-10"                 // default min + (max-min)/2
 			onchange="changeRange8()"
 	>
@@ -342,11 +342,11 @@ function webGLStart() {
 	drawScene();
 	animate();
 }
-function onKeyUp(){
+function onScriptKeyUp(){
 	if(event.key == "Enter") onClick();
 }
 function onClick(){
-	vm.eval(input.value);
+	f.eval(input.value);
 }
 function changeOrigin(verticies, pos){
 	for(var i=0; i<verticies.length; i+=3){
