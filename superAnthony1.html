@@ -259,81 +259,89 @@ function mvMatrixPush(){
 function mvMatrixPop(){
 	mat4.set(stack.pop(), mvMatrix);
 }
+var lastTime = 0;
+var delayTime = 0;
 function drawScene() {
-	drawBackground(); var time = new Date().getTime() /1000;
-	setOrigin([0, 1.5, -22]);
 	
-	rotate([0,1,0], 5*Math.cos(time*2)); // 全景稍微轉動
-	
-	mvMatrixPush(); // 上半身
-	
-	rotate([0,1,0], parseInt(rangeVal0.value)+parseInt(amplitude0.value)*Math.sin(time*parseInt(speed0.value))); /*0*/
-	cube.draw(); // 腰
-	
-	translate([-1.1,2.2,0]);
-	cube.draw(); // 左胸
-	translate([2.2,0,0]);
-	cube.draw(); // 右胸
-	translate([-1.1,2.4,0]);
-	cube.draw(); // 頭
-	
-	mvMatrixPush(); // 右上肢
-	
-	translate([3.4,-2.0,0]);
-	rotate([0,0,1], parseInt(rangeVal1.value)+parseInt(amplitude1.value)*Math.sin(time*parseInt(speed1.value))); /*1*/
-	cube.draw(); // 右肩
-	
-	translate([0,-2.2,0]);
-	rotate([1,0,0], parseInt(rangeVal2.value)+parseInt(amplitude2.value)*Math.sin(time*parseInt(speed2.value))); /*2*/
-	cube.draw(); // 右臂
-	
-	mvMatrixPop(); // 左上肢
-	
-	translate([-3.4,-2.0,0]);
-	rotate([0,0,1], parseInt(rangeVal3.value)+parseInt(amplitude3.value)*Math.sin(time*parseInt(speed3.value))); /*3*/
-	cube.draw(); // 左肩
-	
-	translate([0,-2.2,0]);
-	rotate([-1,0,0], parseInt(rangeVal4.value)+parseInt(amplitude4.value)*Math.sin(time*parseInt(speed4.value))); /*4*/
-	cube.draw(); // 左臂
-	
-	mvMatrixPop(); // 下半身
-	
-	translate([-1.1,-2.2,0]);
-	cube.draw(); // 股
-	translate([2.2,0,0]);
-	cube.draw(); // 股
-	
-	mvMatrixPush(); // 右下肢
-	
-	translate([1.3,-1,0]);
-	cube.draw(); // 右跨
-	
-	translate([0,-2.1,0]);
-	rotate([1,0,0], parseInt(rangeVal5.value)+parseInt(amplitude5.value)*Math.sin(time*parseInt(speed5.value))); /*5*/
-	cube.draw(); // 右腿
-	
-	translate([0,-2.1,0]);
-	rotate([1,0,0], parseInt(rangeVal6.value)+parseInt(amplitude6.value)*Math.sin(time*parseInt(speed6.value))); /*6*/
-	cube.draw(); // 右腳
-	
-	mvMatrixPop(); // 左下肢
-	
-	translate([-3.5,-1,0]);
-	cube.draw(); // 左跨
-	
-	translate([0,-2.1,0]);
-	rotate([-1,0,0], parseInt(rangeVal7.value)+parseInt(amplitude7.value)*Math.sin(time*parseInt(speed7.value))); /*7*/
-	cube.draw(); // 左腿
-	
-	translate([0,-2.1,0]);
-	rotate([-1,0,0], parseInt(rangeVal8.value)+parseInt(amplitude8.value)*Math.sin(time*parseInt(speed8.value))); /*8*/
-	cube.draw(); // 左腳
+		var time = new Date().getTime() /1000;
+		delayTime = time - lastTime;
+		if(bAutoRun.innerHTML != "autoRun") lastTime = time;
+		time -= delayTime;
+		
+		drawBackground();
+		setOrigin([0, 1.5, -22]);
+		
+		rotate([0,1,0], 5*Math.cos(time*2)); // 全景稍微轉動
+		
+		mvMatrixPush(); // 上半身
+		
+		rotate([0,1,0], parseInt(rangeVal0.value)+parseInt(amplitude0.value)*Math.sin(time*parseInt(speed0.value))); /*0*/
+		cube.draw(); // 腰
+		
+		translate([-1.1,2.2,0]);
+		cube.draw(); // 左胸
+		translate([2.2,0,0]);
+		cube.draw(); // 右胸
+		translate([-1.1,2.4,0]);
+		cube.draw(); // 頭
+		
+		mvMatrixPush(); // 右上肢
+		
+		translate([3.4,-2.0,0]);
+		rotate([0,0,1], parseInt(rangeVal1.value)+parseInt(amplitude1.value)*Math.sin(time*parseInt(speed1.value))); /*1*/
+		cube.draw(); // 右肩
+		
+		translate([0,-2.2,0]);
+		rotate([1,0,0], parseInt(rangeVal2.value)+parseInt(amplitude2.value)*Math.sin(time*parseInt(speed2.value))); /*2*/
+		cube.draw(); // 右臂
+		
+		mvMatrixPop(); // 左上肢
+		
+		translate([-3.4,-2.0,0]);
+		rotate([0,0,1], parseInt(rangeVal3.value)+parseInt(amplitude3.value)*Math.sin(time*parseInt(speed3.value))); /*3*/
+		cube.draw(); // 左肩
+		
+		translate([0,-2.2,0]);
+		rotate([-1,0,0], parseInt(rangeVal4.value)+parseInt(amplitude4.value)*Math.sin(time*parseInt(speed4.value))); /*4*/
+		cube.draw(); // 左臂
+		
+		mvMatrixPop(); // 下半身
+		
+		translate([-1.1,-2.2,0]);
+		cube.draw(); // 股
+		translate([2.2,0,0]);
+		cube.draw(); // 股
+		
+		mvMatrixPush(); // 右下肢
+		
+		translate([1.3,-1,0]);
+		cube.draw(); // 右跨
+		
+		translate([0,-2.1,0]);
+		rotate([1,0,0], parseInt(rangeVal5.value)+parseInt(amplitude5.value)*Math.sin(time*parseInt(speed5.value))); /*5*/
+		cube.draw(); // 右腿
+		
+		translate([0,-2.1,0]);
+		rotate([1,0,0], parseInt(rangeVal6.value)+parseInt(amplitude6.value)*Math.sin(time*parseInt(speed6.value))); /*6*/
+		cube.draw(); // 右腳
+		
+		mvMatrixPop(); // 左下肢
+		
+		translate([-3.5,-1,0]);
+		cube.draw(); // 左跨
+		
+		translate([0,-2.1,0]);
+		rotate([-1,0,0], parseInt(rangeVal7.value)+parseInt(amplitude7.value)*Math.sin(time*parseInt(speed7.value))); /*7*/
+		cube.draw(); // 左腿
+		
+		translate([0,-2.1,0]);
+		rotate([-1,0,0], parseInt(rangeVal8.value)+parseInt(amplitude8.value)*Math.sin(time*parseInt(speed8.value))); /*8*/
+		cube.draw(); // 左腳
+
 }
 function animate(){
-	if(bAutoRun.innerHTML!="autoRun")
-		drawScene()
 	requestAnimFrame(animate); // the function requestAnimFrame is in webgl-utils.js
+	drawScene()
 }
 function webGLStart() {
 	initGL();
@@ -358,94 +366,77 @@ function autoRun(){
 	else								bAutoRun.innerHTML="autoRun";
 }
 function changeVal0(){
+	var v;
 	range0.value=Math.max(Math.min(rangeVal0.value,range0.max),range0.min);
-	if(rangeVal0.value!=range0.value){
-		rangeVal0.value=range0.value;
-		drawScene();
-	}
+	drawScene();
 }
 function changeRange0(){
 	rangeVal0.value=range0.value;
+	drawScene();
 }
 function changeVal1(){
 	range1.value=Math.max(Math.min(rangeVal1.value,range1.max),range1.min);
-	if(rangeVal1.value!=range1.value){
-		rangeVal1.value=range1.value;
-		drawScene();
-	}
+	drawScene();
 }
 function changeRange1(){
 	rangeVal1.value=range1.value;
+	drawScene();
 }
 function changeVal2(){
 	range2.value=Math.max(Math.min(rangeVal2.value,range2.max),range2.min);
-	if(rangeVal2.value!=range2.value){
-		rangeVal2.value=range2.value;
-		drawScene();
-	}
+	drawScene();
 }
 function changeRange2(){
 	rangeVal2.value=range2.value;
+	drawScene();
 }
 function changeVal3(){
 	range3.value=Math.max(Math.min(rangeVal3.value,range3.max),range3.min);
-	if(rangeVal3.value!=range3.value){
-		rangeVal3.value=range3.value;
-		drawScene();
-	}
+	drawScene();
 }
 function changeRange3(){
 	rangeVal3.value=range3.value;
+	drawScene();
 }
 function changeVal4(){
 	range4.value=Math.max(Math.min(rangeVal4.value,range4.max),range4.min);
-	if(rangeVal4.value!=range4.value){
-		rangeVal4.value=range4.value;
-		drawScene();
-	}
+	drawScene();
 }
 function changeRange4(){
 	rangeVal4.value=range4.value;
+	drawScene();
 }
 function changeVal5(){
 	range5.value=Math.max(Math.min(rangeVal5.value,range5.max),range5.min);
-	if(rangeVal5.value!=range5.value){
-		rangeVal5.value=range5.value;
-		drawScene();
-	}
+	drawScene();
 }
 function changeRange5(){
 	rangeVal5.value=range5.value;
+	drawScene();
 }
 function changeVal6(){
 	range6.value=Math.max(Math.min(rangeVal6.value,range6.max),range6.min);
-	if(rangeVal6.value!=range6.value){
-		rangeVal6.value=range6.value;
-		drawScene();
-	}
+	drawScene();
 }
 function changeRange6(){
 	rangeVal6.value=range6.value;
+	drawScene();
 }
 function changeVal7(){
 	range7.value=Math.max(Math.min(rangeVal7.value,range7.max),range7.min);
-	if(rangeVal7.value!=range7.value){
-		rangeVal7.value=range7.value;
-		drawScene();
-	}
+	drawScene();
 }
 function changeRange7(){
 	rangeVal7.value=range7.value;
+	drawScene();
 }
 function changeVal8(){
 	range8.value=Math.max(Math.min(rangeVal8.value,range8.max),range8.min);
-	if(rangeVal8.value!=range8.value){
-		rangeVal8.value=range8.value;
-		drawScene();
-	}
+	drawScene();
 }
 function changeRange8(){
 	rangeVal8.value=range8.value;
+	drawScene();
 }
 </script>
 </html>
