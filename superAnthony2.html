@@ -12,7 +12,7 @@
 	<button onclick="onClick()">eval javaScript or forth</button>
 	<button id="bAutoRun" onclick="autoRun()">autoRun</button><br> 0 腰﹍
 	轉幅 <input id="amplitude0" value="30" size="1">
-	速 <input id="speed0" value="2" size="1">
+	速 <input id="speed0" value="9" size="1">
 	<input	id="range0" type="range"
 			min="-360"                    // default 0
 			max="360"                  // default 100
@@ -22,20 +22,20 @@
 	偏 <input id="rangeVal0" value="0" size="1" onkeyup="changeVal0()">
 	
 	<br>1 右肩
-	轉幅 <input id="amplitude1" value="100" size="1">
-	速 <input id="speed1" value="2" size="1">
+	轉幅 <input id="amplitude1" value="50" size="1">
+	速 <input id="speed1" value="9" size="1">
 	<input	type="range"
 			id="range1"
 			min="-360"                    // default 0
 			max="360"                  // default 100
-			value="110"                 // default min + (max-min)/2
+			value="30"                 // default min + (max-min)/2
 			onchange="changeRange1()"
 	>
-	偏 <input id="rangeVal1" value="110" size="1" onkeyup="changeVal1()">
+	偏 <input id="rangeVal1" value="30" size="1" onkeyup="changeVal1()">
 	
 	<br>2 右臂
-	轉幅 <input id="amplitude2" value="20" size="1">
-	速 <input id="speed2" value="3" size="1">
+	轉幅 <input id="amplitude2" value="60" size="1">
+	速 <input id="speed2" value="9" size="1">
 	<input	type="range"
 			id="range2"
 			min="-360"                    // default 0
@@ -46,20 +46,20 @@
 	偏 <input id="rangeVal2" value="-50" size="1" onkeyup="changeVal2()">
 	
 	<br>3 左肩
-	轉幅 <input id="amplitude3" value="100" size="1">
-	速 <input id="speed3" value="2" size="1">
+	轉幅 <input id="amplitude3" value="50" size="1">
+	速 <input id="speed3" value="9" size="1">
 	<input	type="range"
 			id="range3"
 			min="-360"                    // default 0
 			max="360"                  // default 100
-			value="-110"                 // default min + (max-min)/2
+			value="-30"                 // default min + (max-min)/2
 			onchange="changeRange3()"
 	>
-	偏 <input id="rangeVal3" value="-110" size="1" onkeyup="changeVal3()">
+	偏 <input id="rangeVal3" value="-30" size="1" onkeyup="changeVal3()">
 	
 	<br>4 左臂
-	轉幅 <input id="amplitude4" value="20" size="1">
-	速 <input id="speed4" value="3" size="1">
+	轉幅 <input id="amplitude4" value="60" size="1">
+	速 <input id="speed4" value="9" size="1">
 	<input	type="range"
 			id="range4"
 			min="-360"                    // default 0
@@ -71,7 +71,7 @@
 	
 	<br>5 右腿
 	轉幅 <input id="amplitude5" value="15" size="1">
-	速 <input id="speed5" value="2" size="1">
+	速 <input id="speed5" value="9" size="1">
 	<input	type="range"
 			id="range5"
 			min="-360"                    // default 0
@@ -83,7 +83,7 @@
 	
 	<br>6 右腳
 	轉幅 <input id="amplitude6" value="10" size="1">
-	速 <input id="speed6" value="3" size="1">
+	速 <input id="speed6" value="9" size="1">
 	<input	type="range"
 			id="range6"
 			min="-360"                    // default 0
@@ -97,7 +97,7 @@
 	<br>7 左腿
 	
 	轉幅 <input id="amplitude7" value="15" size="1">
-	速 <input id="speed7" value="2" size="1">
+	速 <input id="speed7" value="9" size="1">
 	<input	type="range"
 			id="range7"
 			min="-360"                    // default 0
@@ -109,7 +109,7 @@
 	
 	<br>8 左腳
 	轉幅 <input id="amplitude8" value="10" size="1">
-	速 <input id="speed8" value="3" size="1">
+	速 <input id="speed8" value="9" size="1">
 	<input	type="range"
 			id="range8"
 			min="-360"                    // default 0
@@ -287,7 +287,7 @@ function drawScene() {
 		drawBackground();
 		setOrigin([0, .5, -20]);
 		
-		rotate([0,1,0], 5*Math.cos(time*2)); // 全景微轉
+		rotate([0,1,0], 10*Math.cos(time*9)); // 全景微轉
 		
 		mvMatrixPush(); // 上半身
 		
